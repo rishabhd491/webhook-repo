@@ -20,6 +20,10 @@ def github_webhook():
     # Determine action and extract relevant information
     # GitHub sends event type in 'X-GitHub-Event' header
     event_type = request.headers.get("X-GitHub-Event")
+    print(f"Received event type: {event_type}")
+
+    if event_type == "ping":
+        return jsonify({"message": "Ping received successfully"}), 200
     
     action = None
     author = None
