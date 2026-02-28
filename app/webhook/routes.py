@@ -4,10 +4,13 @@ import os
 
 webhook_bp = Blueprint("webhook", __name__)
 
-@webhook_bp.route("/webhook", methods=["POST"])
+@webhook_bp.route("/webhook", methods=["GET", "POST"])
 def github_webhook():
-    # Use from app import mongo locally to avoid circular import if needed, 
-    # but since it's initialized in __init__.py, it should be fine.
+    if request.method == "GET":
+        return jsonify({"message": "Webhook endpoint is active and waiting for POST requests"}), 200
+        
+    print("Webhook received!")
+    # Use from app import mongo locally to avoid circular import if needed
     from app import mongo
     
     data = request.json
