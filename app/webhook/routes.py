@@ -4,7 +4,7 @@ import os
 
 webhook_bp = Blueprint("webhook", __name__)
 
-@webhook_bp.route("/webhook", methods=["GET", "POST"])
+@webhook_bp.route("/github-receiver", methods=["GET", "POST"])
 def github_webhook():
     if request.method == "GET":
         return jsonify({"message": "Webhook endpoint is active and waiting for POST requests"}), 200
